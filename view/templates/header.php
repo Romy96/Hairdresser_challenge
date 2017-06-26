@@ -3,14 +3,37 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Studenten app</title>
-	<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="<?= URL ?>css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="<?= URL ?>css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="<?=  URL ?>js/bootstrap.min.js"></script>
+	<title>Kapperszaak</title>	
+	<link rel="stylesheet" href="<?= URL ?>css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?= URL ?>css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= URL ?>css/stylesheet.css">
 </head>
 <body>
+
+<nav class="navbar navbar-inverse">
+      <div class="container">
+		 <div class="collapse navbar-collapse" id="navbar-collapse-4">
+		          <ul class="nav navbar-nav navbar-right">
+		            <li><a href="<?=URL?>home/index">Home</a></li>
+		            <li><a href="<?=URL?>home/prices">Prijzen</a></li>
+		            <li><a href="<?=URL?>home/times">Tijdstippen</a></li>
+		            <li><a href="<?=URL?>home/register">Registreren</a></li>
+		            <li><a href="<?=URL?>home/login">Inloggen</a></li>
+		     	</ul>
+		</div><!-- /.navbar-collapse -->
+	</div>
+</nav>
+
+<div class="container">
+	<?php
+        // if errors found, print them
+        if (isset($_SESSION['errors']) && is_array($_SESSION['errors']) && sizeof($_SESSION['errors'])>0 ) {
+            echo '<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Fout!</strong> <ul>';
+            foreach($_SESSION['errors'] as $error) {
+                echo '<li>' . $error . '</li>';
+            }
+            echo '</ul></div>';
+            // errors are shown. now remove them from session
+            $_SESSION['errors'] = [];
+        }
+    ?>
