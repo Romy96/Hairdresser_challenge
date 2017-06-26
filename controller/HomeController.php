@@ -39,3 +39,33 @@ function login()
 {
 	render("home/login");
 }
+
+function loginAction()
+{
+	// Als u al ingelogd heeft, dan gaat u terug naar de hoofdpagina
+	if ( IsLoggedInSession()==true ) {
+		$_SESSION['errors'] = "U heeft al ingelogd!";
+		header("Location: " . URL . "home/index");
+		exit();
+	}
+	// Anders als $_POST bestaat, dan start u de functie in Model. Als de functie succesvolis uitgevoerd, dan gaat u terug naar de hoofdpagina.
+	else {
+		if(isset($_POST["email"]) && isset($_POST["password"])) {
+			if(loginClient($_POST['email'], $_POST['password']))
+			{
+				header("Location:" . URL . "home/index");
+				exit();
+			}else{
+				// Zoniet, dan ga je terug naar de login pagina met een foutmelding
+				header("Location: " . URL . "home/login");
+				$_SESSION['errors'] = 'Er ging iets mis!';
+				exit();
+			}
+		}
+		else
+		{
+			header("Location: " . URL . "home/login");
+			exit();
+		}
+	}
+}

@@ -13,12 +13,22 @@
 <nav class="navbar navbar-inverse">
       <div class="container">
 		 <div class="collapse navbar-collapse" id="navbar-collapse-4">
-		          <ul class="nav navbar-nav navbar-right">
+		        <ul class="nav navbar-nav navbar-right">
 		            <li><a href="<?=URL?>home/index">Home</a></li>
 		            <li><a href="<?=URL?>home/prices">Prijzen</a></li>
 		            <li><a href="<?=URL?>home/times">Tijdstippen</a></li>
-		            <li><a href="<?=URL?>home/register">Registreren</a></li>
+		            <?php
+					if(isset($_SESSION['userId'])):
+					?>
+					<li><a href="<?=URL?>home/logOut"><i class="fa fa-sign-out" aria-hidden="true"></i>Uitloggen</a></li>
+					<?php
+					; else:
+					?>
+					<li><a href="<?=URL?>home/register">Registreren</a></li>
 		            <li><a href="<?=URL?>home/login">Inloggen</a></li>
+		            <?php
+		            endif;
+		            ?>
 		     	</ul>
 		</div><!-- /.navbar-collapse -->
 	</div>
