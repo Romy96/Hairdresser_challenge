@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="<?= URL ?>css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?= URL ?>css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?= URL ?>css/stylesheet.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 </head>
 <body>
 
