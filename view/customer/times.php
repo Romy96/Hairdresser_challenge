@@ -42,7 +42,7 @@ endif;
 if(isset($appointments)):
 ?>
 
-<h1>Gereserveerde afspraken</h1>
+<h1>Gemaakte afspraken</h1>
 
 <div class="container">
 	<div class="row">
@@ -68,7 +68,13 @@ if(isset($appointments)):
                     <td><?=$row['appointment.status']?></td>
                     <td>
                     	<div class="btn-group">
-                    		<a href="<?=URL?>customer/cancelAppointment/<?=$row['id']?>">Annuleren</a>
+                    		<?php
+                    		if ($row['appointment.status'] == "Gereserveerd"):
+                    		?>
+                    		<a href="<?=URL?>customer/cancelAppointment/<?=$row['id']?>" onclick="return confirm('Weet je het zeker?')">Annuleren</a>
+                    		<?php
+                    		endif;
+                    		?>
                     	</div>
                     </td>                                      
                 </tr>

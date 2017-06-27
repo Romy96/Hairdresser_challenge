@@ -106,7 +106,7 @@ function getReservedAppointments($userid)
 		FROM appointments 
 		JOIN customers ON customers.id = appointments.customer 
 		JOIN employees ON employees.id = appointments.hairdresser 
-		WHERE appointments.customer=:userid AND appointments.status='Gereserveerd'";
+		WHERE appointments.customer=:userid";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':userid' => $userid
@@ -115,4 +115,19 @@ function getReservedAppointments($userid)
 	$db = null;
 
 	return $query->fetchall();
+}
+
+function AppointmentCancel($id)
+{
+	$db = openDatabaseConnection();
+
+	$sql = "UPDATE appointments SET status='Geannuleerd' WHERE id=:id";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':id' => $id
+	));
+
+	$db = null;
+
+	return true;
 }

@@ -95,3 +95,21 @@ function insertAppointment()
 		}
 	}
 }
+
+function cancelAppointment($id = '')
+{
+	// Als u nog niet ingelogd heeft, dan gaat u naar de login pagina van klant
+	if ( IsLoggedInSession()==false ) {
+		$_SESSION['errors'][] = "U heeft nog niet ingelogd!";
+		header("Location: " . URL . "home/login");
+		exit();
+	}
+	// Zowel, dan voer je de functie uit
+	elseif ( IsLoggedInSession()==true ) 
+	{
+		AppointmentCancel($id);
+		$_SESSION['errors'][] = "Uw afspraak is geannuleerd";
+		header("Location: " . URL . "customer/times");
+		exit();
+	}
+}
