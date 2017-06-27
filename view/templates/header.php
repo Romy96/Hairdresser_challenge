@@ -20,12 +20,21 @@
 					if(isset($_SESSION['userId'])):
 					?>
 					<li><a href="<?=URL?>customer/times">Tijdstippen</a></li>
+					<?php
+					; elseif(isset($_SESSION['employeeId'])):
+					?>
+					<li><a href="#">Inschrijvingen</a></li>
+					<li><a href="#">Beheer tijdstipped</a></li>
+					<?php
+					; elseif(isset($_SESSION['userId']) || isset($_SESSION['employeeId'])):
+					?>
 					<li><a href="<?=URL?>home/logOut"><i class="fa fa-sign-out" aria-hidden="true"></i>Uitloggen</a></li>
 					<?php
 					; else:
 					?>
 					<li><a href="<?=URL?>home/register">Registreren</a></li>
-		            <li><a href="<?=URL?>home/login">Inloggen</a></li>
+		            <li><a href="<?=URL?>home/login">Inloggen als klant</a></li>
+		            <li><a href="<?=URL?>home/loginHairdresser">Inloggen als kapper</a></li>
 		            <?php
 		            endif;
 		            ?>

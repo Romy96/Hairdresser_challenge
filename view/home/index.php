@@ -1,5 +1,5 @@
 <?php
-  if(isset($_SESSION['userId'])):
+  if(isset($_SESSION['userId']) || isset($_SESSION['employeeId'])):
 ?>
 <h1>Welkom terug!</h1>
 <?php

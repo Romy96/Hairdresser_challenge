@@ -81,7 +81,47 @@ function loginClient($email, $password)
 	return true;
 }
 
-function IsLoggedInSession() {
+function loginEmployee($email, $password)
+{
+	// check voor email en wachtwoord
+	$email = $_POST['email'];
+	$password = md5($_POST['password']);
+
+	// maak verbinding met database
+	$db = openDatabaseConnection();
+
+	// selecteer uit tabel waarbij email en wachtwoord hetzelfde zijn dan wat u heeft ingevuld. Zo ja, voer de query uit.
+	$sql = "SELECT * FROM employees WHERE email=:email AND password=:password";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':email' => $email,
+		':password' => $password
+	));
+
+	$row = $query->fetch(PDO::FETCH_ASSOC);
+ 	$rowCount  = $query->rowCount();
+
+ 	// Als er één rij gevonden is, sla het op in de sessie voor de volgende functie
+    if($rowCount == 1 )
+	{
+		$_SESSION['employeeId'] = $row['id'];
+		$_SESSION['logged in'] = true;
+		$_SESSION['emailEmployee'] = $email;
+	}
+	else
+	{
+		$_SESSION['employeeId'] = null; 
+		$_SESSION['emailEmployee'] = null; 
+		$db = null;
+		return false;
+	}
+
+	$db = null;
+
+	return true;
+}
+
+function IsLoggedInSessionClient() {
 	// Als $_SESSION['userId'] leeg is of niet bestaat, dan krijg je 0 terug. Anders krijg je een 1 terug
 	if (isset($_SESSION['userId'])==false || empty($_SESSION['userId']) ) {
 		return 0;
@@ -92,9 +132,20 @@ function IsLoggedInSession() {
 	}
 }
 
+function IsLoggedInSessionEmployee() {
+	// Als $_SESSION['userId'] leeg is of niet bestaat, dan krijg je 0 terug. Anders krijg je een 1 terug
+	if (isset($_SESSION['employeeId'])==false || empty($_SESSION['employeeId']) ) {
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
 function LogOut() {
-	$_SESSION['errors'] = "Logged out";
-	header("location: ". URL ."home/login");
+	$_SESSION['errors'][] = "Logged out";
+	header("location: ". URL ."home/index");
 // Haal sessie leeg na uitloggen
 	$_SESSION = [];
 }

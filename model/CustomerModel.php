@@ -1,6 +1,6 @@
 <?php
 
-function IsLoggedInSession() {
+function IsLoggedInSessionClient() {
 	// Als $_SESSION['userId'] leeg is of niet bestaat, dan krijg je 0 terug. Anders krijg je een 1 terug
 	if (isset($_SESSION['userId'])==false || empty($_SESSION['userId']) ) {
 		return 0;

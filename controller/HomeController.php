@@ -37,14 +37,22 @@ function registerAction()
 
 function login()
 {
-	render("home/login");
+	if ( IsLoggedInSessionClient()==true ) {
+		$_SESSION['errors'][] = "U bent al ingelogd!";
+		header("Location: " . URL . "home/index");
+		exit();
+	}
+	else
+	{
+		render("home/login");
+	}
 }
 
 function loginAction()
 {
 	// Als u al ingelogd heeft, dan gaat u terug naar de hoofdpagina
-	if ( IsLoggedInSession()==true ) {
-		$_SESSION['errors'][] = "U heeft al ingelogd!";
+	if ( IsLoggedInSessionClient()==true ) {
+		$_SESSION['errors'][] = "U bent al ingelogd!";
 		header("Location: " . URL . "home/index");
 		exit();
 	}
@@ -65,6 +73,50 @@ function loginAction()
 		else
 		{
 			header("Location: " . URL . "home/login");
+			exit();
+		}
+	}
+}
+
+function loginHairdresser()
+{
+	if(IsLoggedInSessionEmployee() == true)
+	{
+		$_SESSION['errors'][] = "U bent al ingelogd!";
+		header("Location: " . URL . "home/index");
+		exit();
+	}
+	else
+	{
+		render("home/loginHairdresser");
+	}
+}
+
+function loginEmployeeAction()
+{
+	// Als u al ingelogd heeft, dan gaat u terug naar de hoofdpagina
+	if ( IsLoggedInSessionEmployee()==true ) {
+		$_SESSION['errors'][] = "U bent al ingelogd!";
+		header("Location: " . URL . "home/index");
+		exit();
+	}
+	// Anders als $_POST bestaat, dan start u de functie in Model. Als de functie succesvolis uitgevoerd, dan gaat u terug naar de hoofdpagina.
+	else {
+		if(isset($_POST["email"]) && isset($_POST["password"])) {
+			if(loginEmployee($_POST['email'], $_POST['password']))
+			{
+				header("Location:" . URL . "home/index");
+				exit();
+			}else{
+				// Zoniet, dan ga je terug naar de login pagina met een foutmelding
+				header("Location: " . URL . "home/loginHairdresser");
+				$_SESSION['errors'][] = 'Er ging iets mis!';
+				exit();
+			}
+		}
+		else
+		{
+			header("Location: " . URL . "home/loginHairdresser");
 			exit();
 		}
 	}

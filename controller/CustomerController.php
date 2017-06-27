@@ -5,13 +5,13 @@ require(ROOT . "model/CustomerModel.php");
 function times()
 {
 	// Als u nog niet ingelogd heeft, dan gaat u naar de login pagina van klant
-	if ( IsLoggedInSession()==false ) {
+	if ( IsLoggedInSessionClient()==false ) {
 		$_SESSION['errors'][] = "U heeft nog niet ingelogd!";
 		header("Location: " . URL . "home/login");
 		exit();
 	}
 	// Zowel, dan haal je de functie van model op en zet je het in een variable
-	elseif ( IsLoggedInSession()==true ) 
+	elseif ( IsLoggedInSessionClient()==true ) 
 	{
 		$times = getTimes();
 
@@ -38,13 +38,13 @@ function times()
 function makeAppointment($id = '')
 {
 	// Als u nog niet ingelogd heeft, dan gaat u naar de login pagina van klant
-	if ( IsLoggedInSession()==false ) {
+	if ( IsLoggedInSessionClient()==false ) {
 		$_SESSION['errors'][] = "U heeft nog niet ingelogd!";
 		header("Location: " . URL . "home/login");
 		exit();
 	}
 	// Zowel, dan haal je de functie van model op en zet je het in een variable
-	elseif ( IsLoggedInSession()==true ) 
+	elseif ( IsLoggedInSessionClient()==true ) 
 	{
 		$times = getTimebyId($id);
 
@@ -68,13 +68,13 @@ function makeAppointment($id = '')
 function insertAppointment()
 {
 	// Als u nog niet ingelogd heeft, dan gaat u naar de login pagina van klant
-	if ( IsLoggedInSession()==false ) {
+	if ( IsLoggedInSessionClient()==false ) {
 		$_SESSION['errors'][] = "U heeft nog niet ingelogd!";
 		header("Location: " . URL . "home/login");
 		exit();
 	}
 	// Zowel, dan check je of $_POST leeg is of niet, maar alleen de $_POSTs dat belangrijk zijn
-	elseif ( IsLoggedInSession()==true ) 
+	elseif ( IsLoggedInSessionClient()==true ) 
 	{
 		// Als de geselecteerde $_POSTs leeg zijn, dan ga je terug naar het formulier
 		if(empty($_POST['userid']) && empty($_POST['status']) && empty($_POST['date']) && empty($_POST['hairdresser']))
@@ -99,13 +99,13 @@ function insertAppointment()
 function cancelAppointment($id = '')
 {
 	// Als u nog niet ingelogd heeft, dan gaat u naar de login pagina van klant
-	if ( IsLoggedInSession()==false ) {
+	if ( IsLoggedInSessionClient()==false ) {
 		$_SESSION['errors'][] = "U heeft nog niet ingelogd!";
 		header("Location: " . URL . "home/login");
 		exit();
 	}
 	// Zowel, dan voer je de functie uit
-	elseif ( IsLoggedInSession()==true ) 
+	elseif ( IsLoggedInSessionClient()==true ) 
 	{
 		AppointmentCancel($id);
 		$_SESSION['errors'][] = "Uw afspraak is geannuleerd";
