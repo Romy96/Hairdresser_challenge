@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: 127.0.0.1
--- Gegenereerd op: 26 jun 2017 om 12:50
+-- Gegenereerd op: 27 jun 2017 om 14:32
 -- Serverversie: 5.6.17
 -- PHP-versie: 5.5.12
 
@@ -28,14 +28,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `agenda` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` date DEFAULT NULL,
-  `start_time` time(6) DEFAULT NULL,
-  `end_time` time(6) DEFAULT NULL,
+  `workdate` date DEFAULT NULL,
+  `start_time` varchar(6) DEFAULT NULL,
+  `end_time` varchar(6) DEFAULT NULL,
   `hairdresser` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `date` (`date`),
+  KEY `date` (`workdate`),
   KEY `hairdresser` (`hairdresser`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `agenda`
+--
+
+INSERT INTO `agenda` (`id`, `workdate`, `start_time`, `end_time`, `hairdresser`) VALUES
+(1, '2017-07-04', '10:30', '11:00', 'Ankie');
 
 -- --------------------------------------------------------
 
@@ -47,13 +54,20 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer` int(11) DEFAULT NULL,
   `hairdresser` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
+  `workdate` date DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `date` (`date`),
+  KEY `date` (`workdate`),
   KEY `hairdresser` (`hairdresser`),
   KEY `customer` (`customer`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `customer`, `hairdresser`, `workdate`, `status`) VALUES
+(3, 1, 1, '2017-07-04', 'Gereserveerd');
 
 -- --------------------------------------------------------
 
@@ -72,7 +86,14 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `phone_number` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `customers`
+--
+
+INSERT INTO `customers` (`id`, `firstname`, `prefix`, `lastname`, `username`, `password`, `email`, `phone_number`) VALUES
+(1, 'Romy', '', 'Bijkerk', 'romy96', '27fa9d3a680e68b32cfe2cd22bbdba28', 'romy-bijkerk@hotmail.com', '0636010210');
 
 -- --------------------------------------------------------
 
@@ -92,7 +113,14 @@ CREATE TABLE IF NOT EXISTS `employees` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `firstname` (`firstname`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `employees`
+--
+
+INSERT INTO `employees` (`id`, `firstname`, `prefix`, `lastname`, `username`, `password`, `email`, `phone_number`) VALUES
+(1, 'Ankie', 'van', 'Grunsven', 'Ankie69', 'fb2af291bc5832de8a5f2731c45613b1', 'AnkievanGunsven@gmail.com', '06617783');
 
 --
 -- Beperkingen voor geëxporteerde tabellen
@@ -108,7 +136,7 @@ ALTER TABLE `agenda`
 -- Beperkingen voor tabel `appointments`
 --
 ALTER TABLE `appointments`
-  ADD CONSTRAINT `FK_appointments_agenda` FOREIGN KEY (`date`) REFERENCES `agenda` (`date`),
+  ADD CONSTRAINT `FK_appointments_agenda` FOREIGN KEY (`workdate`) REFERENCES `agenda` (`workdate`),
   ADD CONSTRAINT `FK_appointments_customers` FOREIGN KEY (`customer`) REFERENCES `customers` (`id`),
   ADD CONSTRAINT `FK_appointments_employees` FOREIGN KEY (`hairdresser`) REFERENCES `employees` (`id`);
 

@@ -16,10 +16,10 @@
 		        <ul class="nav navbar-nav navbar-right">
 		            <li><a href="<?=URL?>home/index">Home</a></li>
 		            <li><a href="<?=URL?>home/prices">Prijzen</a></li>
-		            <li><a href="<?=URL?>home/times">Tijdstippen</a></li>
 		            <?php
 					if(isset($_SESSION['userId'])):
 					?>
+					<li><a href="<?=URL?>customer/times">Tijdstippen</a></li>
 					<li><a href="<?=URL?>home/logOut"><i class="fa fa-sign-out" aria-hidden="true"></i>Uitloggen</a></li>
 					<?php
 					; else:

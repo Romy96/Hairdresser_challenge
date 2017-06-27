@@ -44,7 +44,7 @@ function loginAction()
 {
 	// Als u al ingelogd heeft, dan gaat u terug naar de hoofdpagina
 	if ( IsLoggedInSession()==true ) {
-		$_SESSION['errors'] = "U heeft al ingelogd!";
+		$_SESSION['errors'][] = "U heeft al ingelogd!";
 		header("Location: " . URL . "home/index");
 		exit();
 	}
@@ -58,7 +58,7 @@ function loginAction()
 			}else{
 				// Zoniet, dan ga je terug naar de login pagina met een foutmelding
 				header("Location: " . URL . "home/login");
-				$_SESSION['errors'] = 'Er ging iets mis!';
+				$_SESSION['errors'][] = 'Er ging iets mis!';
 				exit();
 			}
 		}

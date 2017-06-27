@@ -64,7 +64,7 @@
       <label class="control-label"  for="phone_number">Telefoonnummer</label>
       <div class="input-group">
       	<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span><i class="fa fa-phone" aria-hidden="true"></i></span>        
-      	<input type="number" id="phone_number" name="phone_number" placeholder="Vul uw telefoonnummer in (gebruik alleen cijfers)" class="form-control" required>
+      	<input type="tel" id="phone_number" name="phone_number" placeholder="Vul uw telefoonnummer in (gebruik alleen cijfers)" class="form-control" required>
       </div>
     </div>
  
