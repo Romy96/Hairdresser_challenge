@@ -26,8 +26,12 @@
 					?>
 					<li><a href="<?=URL?>employee/registrations">Inschrijvingen</a></li>
 					<li><a href="<?=URL?>employee/managementTimes">Beheer tijdstippen</a></li>
+					<li><a href="<?=URL?>employee/reservations">Reserveringen</a></li>
 					<?php
-					; elseif(isset($_SESSION['userId']) || isset($_SESSION['employeeId'])):
+					endif;
+					?>
+					<?php
+					if(isset($_SESSION['userId']) || isset($_SESSION['employeeId'])):
 					?>
 					<li><a href="<?=URL?>home/logOut"><i class="fa fa-sign-out" aria-hidden="true"></i>Uitloggen</a></li>
 					<?php
@@ -56,4 +60,17 @@
             // errors are shown. now remove them from session
             $_SESSION['errors'] = [];
         }
+    ?>
+
+     <?php
+    // if info messages found, print them
+    if (isset($_SESSION['info']) && is_array($_SESSION['info']) && sizeof($_SESSION['info'])>0 ) {
+        echo '<div class="alert alert-success alert-dismissable" id="alert-success-1"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Gelukt!</strong> <ul>';
+        foreach($_SESSION['info'] as $info) {
+            echo '<li>' . $info . '</li>';
+        }
+        echo '</ul></div>';
+        // errors are shown. now remove them from session
+        $_SESSION['info'] = [];
+    }
     ?>

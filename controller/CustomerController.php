@@ -89,7 +89,7 @@ function insertAppointment()
 		elseif(isset($_POST['userid']) && isset($_POST['status']) && isset($_POST['date']) && isset($_POST['hairdresser']))
 		{
 			createAppointment($_POST['userid'], $_POST['status'], $_POST['date'], $_POST['hairdresser']);
-			$_SESSION['errors'][] = "U heeft gereserveerd voor een afspraak.";
+			$_SESSION['info'][] = "U heeft gereserveerd voor een afspraak.";
 			header("Location: " . URL . "customer/times");
 			exit();
 		}
@@ -108,7 +108,7 @@ function cancelAppointment($id = '')
 	elseif ( IsLoggedInSessionClient()==true ) 
 	{
 		AppointmentCancel($id);
-		$_SESSION['errors'][] = "Uw afspraak is geannuleerd";
+		$_SESSION['info'][] = "Uw afspraak is geannuleerd";
 		header("Location: " . URL . "customer/times");
 		exit();
 	}

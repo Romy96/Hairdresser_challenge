@@ -144,8 +144,8 @@ function IsLoggedInSessionEmployee() {
 }
 
 function LogOut() {
-	$_SESSION['errors'][] = "Logged out";
-	header("location: ". URL ."home/index");
+	$_SESSION['info'][] = "Logged out";
+	header("location: " . URL . "home/index");
 // Haal sessie leeg na uitloggen
 	$_SESSION = [];
 }

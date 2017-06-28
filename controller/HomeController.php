@@ -30,6 +30,7 @@ function registerAction()
 	{
 		RegisterAccount($_POST['firstname'], $_POST['prefix'], $_POST['lastname'], $_POST['username'], $_POST['password'], $_POST['email'], 
 			$_POST['phone_number']);
+		$_SESSION['info'][] = "De account is gemaakt!";
 		header("Location: " . URL . "home/login");
 		exit();
 	}

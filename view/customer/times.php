@@ -42,7 +42,7 @@ endif;
 if(isset($appointments)):
 ?>
 
-<h1>Gemaakte afspraken</h1>
+<h1>Gemaakte reserveringen</h1>
 
 <div class="container">
 	<div class="row">

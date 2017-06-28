@@ -115,3 +115,85 @@ function insertTime($workdate = null, $start_time = null, $end_time = null, $hai
 
 	return true;
 }
+
+function removeTimefromAgenda($id)
+{
+	$db = openDatabaseConnection();
+
+	$sql = "DELETE agenda FROM agenda JOIN appointments ON appointments.workdate=agenda.workdate WHERE id=:id AND appointments.status!='Gereserveerd!'";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':id' => $id
+	));
+
+	$db = null;
+
+	return true;
+}
+
+function getReservations()
+{
+	$db = openDatabaseConnection();
+
+	$sql = $sql = "SELECT appointments.*
+		, customers.firstname AS 'customer.name'
+		, employees.firstname AS 'employee.name'
+		, appointments.workdate AS 'appointment.workdate'
+		, appointments.status AS 'appointment.status'
+		, appointments.customer AS 'appointment.customer'
+		FROM appointments 
+		JOIN customers ON customers.id = appointments.customer 
+		JOIN employees ON employees.id = appointments.hairdresser
+		WHERE appointments.status != 'Geannuleerd'";
+	$query = $db->prepare($sql);
+	$query->execute();
+
+	$db = null;
+
+	return $query->fetchAll();
+}
+
+function getCustomer($id)
+{
+	$db = openDatabaseConnection();
+
+	$sql = "SELECT * FROM customers WHERE id=:id";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':id' => $id
+	));
+
+	$db = null;
+
+	return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function statusComplete($id)
+{
+	$db = openDatabaseConnection();
+
+	$sql = "UPDATE appointments SET status = 'Klant geweest' WHERE id=:id";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':id' => $id
+	));
+
+	$db = null;
+
+	return true;
+}
+
+function statusMove($id)
+{
+	$db = openDatabaseConnection();
+
+	$sql = "UPDATE appointments SET status = 'Klant niet komen opdagen' WHERE id=:id";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':id' => $id
+	));
+
+	$db = null;
+
+	return true;
+}
