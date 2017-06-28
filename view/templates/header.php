@@ -25,7 +25,7 @@
 					; elseif(isset($_SESSION['employeeId'])):
 					?>
 					<li><a href="<?=URL?>employee/registrations">Inschrijvingen</a></li>
-					<li><a href="#">Beheer tijdstipped</a></li>
+					<li><a href="<?=URL?>employee/managementTimes">Beheer tijdstippen</a></li>
 					<?php
 					; elseif(isset($_SESSION['userId']) || isset($_SESSION['employeeId'])):
 					?>

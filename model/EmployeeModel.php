@@ -66,3 +66,52 @@ function getAllAppointments()
 
 	return $query->fetchAll();
 }
+
+function getAgenda()
+{
+	$db = openDatabaseConnection();
+
+	$sql = "SELECT * FROM agenda";
+	$query = $db->prepare($sql);
+	$query->execute();
+
+	$db = null; 
+
+	return $query->fetchAll();
+}
+
+function getEmployeeFirstname()
+{
+	$db = openDatabaseConnection();
+
+	$sql = "SELECT firstname FROM employees";
+	$query = $db->prepare($sql);
+	$query->execute();
+
+	$db = null;
+
+	return $query->fetchAll();
+}
+
+function insertTime($workdate = null, $start_time = null, $end_time = null, $hairdresser = null)
+{
+	$workdate = isset($_POST['workdate']) ? $_POST['workdate'] : null;
+	$start_time = isset($_POST['start_time']) ? $_POST['start_time'] : null;
+	$end_time = isset($_POST['end_time']) ? $_POST['end_time'] : null;
+	$hairdresser = isset($_POST['hairdresser']) ? $_POST['hairdresser'] : null;
+
+	$db = openDatabaseConnection();
+
+	$sql = "INSERT INTO agenda (workdate, start_time, end_time, hairdresser) VALUES (:workdate, :start_time, :end_time, :hairdresser)";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':workdate' => $workdate,
+		':start_time' => $start_time,
+		':end_time' => $end_time,
+		':hairdresser' => $hairdresser
+	));
+
+	$db = null;
+
+	return true;
+}
